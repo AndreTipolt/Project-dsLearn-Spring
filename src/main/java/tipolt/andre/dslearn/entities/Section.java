@@ -1,26 +1,20 @@
 package tipolt.andre.dslearn.entities;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
-import tipolt.andre.dslearn.entities.enums.ResourceType;
 
 @Entity
-@Table(name = "tb_resource")
+@Table(name = "tb_section")
 @Data
-public class Resource implements Serializable{
-
+public class Section {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,13 +27,11 @@ public class Resource implements Serializable{
 
     private String imgUri;
 
-    private ResourceType type;
+    @ManyToOne
+    @JoinColumn(name = "resource_id")
+    private Resource resource;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id")
-    private Offer offer;
-
-    @OneToMany(mappedBy = "resource")
-    private List<Section> section = new ArrayList<>();
-
+    @JoinColumn(name = "prerequisite_id")
+    private Section prerequisite;
 }
