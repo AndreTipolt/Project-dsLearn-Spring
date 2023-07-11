@@ -1,10 +1,13 @@
 package tipolt.andre.dslearn.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -27,8 +30,11 @@ public class Enrollment {
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant refundMoment;
-    private boolean avaliable;
+    private boolean available;
     private boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentsDone")
+	private Set<Lesson> lessonsDone = new HashSet<>();
 
     public Enrollment(User user, Offer offer, Instant enrollMoment, Instant refundMoment, boolean avaliable,
             boolean onlyUpdate) {
@@ -36,7 +42,7 @@ public class Enrollment {
         id.setOffer(offer);
         this.enrollMoment = enrollMoment;
         this.refundMoment = refundMoment;
-        this.avaliable = avaliable;
+        this.available = avaliable;
         this.onlyUpdate = onlyUpdate;
     }
 
