@@ -24,7 +24,7 @@ import lombok.Data;
 @Table(name = "tb_topic")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class Topic implements Serializable {
+public class Topic implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
