@@ -1,4 +1,4 @@
-package tipolt.andre.dslearn.entities.repositories;
+package tipolt.andre.dslearn.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
