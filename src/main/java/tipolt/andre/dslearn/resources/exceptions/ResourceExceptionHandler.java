@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import tipolt.andre.dslearn.services.exceptions.DatabaseException;
+import tipolt.andre.dslearn.services.exceptions.ForbiddenException;
 import tipolt.andre.dslearn.services.exceptions.ResourceNotFoundException;
+import tipolt.andre.dslearn.services.exceptions.UnauthorizedException;
 
 
 @ControllerAdvice
@@ -57,5 +59,19 @@ public class ResourceExceptionHandler {
 		}
 		
 		return ResponseEntity.status(status).body(err);
-	}	
+	}
+
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<OAuthCustomError> forbidden(ForbiddenException e, HttpServletRequest request) {
+		OAuthCustomError err = new OAuthCustomError("Forbidden", e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+	}
+
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<OAuthCustomError> unauthorized(ForbiddenException e, HttpServletRequest request) {
+		OAuthCustomError err = new OAuthCustomError("Unauthorized", e.getMessage());
+
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
+	}
 }
