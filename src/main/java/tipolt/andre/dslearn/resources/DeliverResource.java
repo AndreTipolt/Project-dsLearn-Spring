@@ -2,6 +2,7 @@ package tipolt.andre.dslearn.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class DeliverResource {
     @Autowired
     private DeliverService deliverService;
 
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'INSTRUCTOR')") // Pode usar na camada de serviço se quiser tbm
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> updateDeliver(@PathVariable Long id, @RequestBody DeliverRevisionDTO dto){
         
